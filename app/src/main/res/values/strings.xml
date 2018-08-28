@@ -17,4 +17,6 @@
     <string name="about_developer_name">周康</string>
     <string name="version">version:</string>
     <string name="wind_discription">风力：</string>
+    <string name="loading_str">正在刷新...</string>
+    <string name="succeed_refresh_str">刷新成功</string>
 </resources>

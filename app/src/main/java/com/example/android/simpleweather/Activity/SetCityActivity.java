@@ -73,7 +73,6 @@ public class SetCityActivity extends AppCompatActivity implements AdapterView.On
     private void loadCitiesData() {
         //程序第一次运行时，cityBean==null，通过URL获取城市JSON数据
         //程序不是第一次运行，说明已经直接从SpUtils获得cityBean对象；
-        Log.d("xxx", "loadCitiesData: " + new Gson().toJson(cityBean));
 
         if (cityBean == null) {
             final String citiesUrl = ConfigURL.citiesURL;
@@ -91,7 +90,6 @@ public class SetCityActivity extends AppCompatActivity implements AdapterView.On
                     //保存cityBean对象
                     SpUtils.putObject(SetCityActivity.this, cityBean);
 
-                    Log.d("---TAG---", "onResponse--------------: ");
                     //处理得到的城市数据
                     processCitiesData(cityBean);
                 }
@@ -105,11 +103,9 @@ public class SetCityActivity extends AppCompatActivity implements AdapterView.On
 
 
     private void processCitiesData(CityBean cityBean) {
-        Log.d("---TAG---", "processCitiesData------1--------: ");
         //获得城市列表
         citieslist = cityBean.getResult();
 
-        Log.d("---TAG---", "processCitiesData--2------------: ");
         //借助HashSet去除重复的省
         HashSet<String> hashSet = new HashSet<>();
         //遍历出省份,把省份配置到spinnerProvince；
