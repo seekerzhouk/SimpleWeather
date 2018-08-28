@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">简单天气</string>
+    <string name="details_weather">天气详情</string>
+    <string name="set_city">设置城市</string>
+    <string name="refresh">刷新</string>
+    <string name="about">关于</string>
+    <string name="select_city">请选择城市</string>
+    <string name="province_city">省/市</string>
+    <string name="city_county">市/区</string>
+    <string name="county_county">区/县</string>
+    <string name="confirm">确定</string>
+    <string name="please_set_city">右上角设置城市😊</string>
+    <string name="tip_double_click_exit">再点一次退出程序</string>
+    <string name="havent_set_location">未设置城市</string>
+    <string name="about_fuction">支持全国三千多个城市的天气查询</string>
+    <string name="about_developer">作者:</string>
+    <string name="about_developer_name">周康</string>
+    <string name="version">version:</string>
+    <string name="wind_discription">风力：</string>
+</resources>

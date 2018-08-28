@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ADD8E6</color>
+    <color name="colorPrimaryDark">#9AC0CD</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorRecyclerViewBackground">#FFFFFF</color>
+    <color name="listItemBackground">#E5E5E5</color>
+    <color name="todayItemBackground">#ADD8E6</color>
+    <color name="toast">#bac2dc</color>
+    <color name="fragment_text">#FFFFFF</color>
+    <color name="about_activity">#E5E5E5</color>
+</resources>

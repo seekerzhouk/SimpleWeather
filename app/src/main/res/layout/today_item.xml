@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@color/todayItemBackground">
+
+    <TextView
+        android:id="@+id/tv_today_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:text="星期一"
+        android:textSize="20sp"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/tv_today_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_today_day"
+        android:layout_marginTop="20dp"
+        android:text="2018-08-13"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/tv_today_max_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_today_date"
+        android:layout_marginTop="20dp"
+        android:text="30℃"
+        android:textSize="30sp" />
+
+
+    <ImageView
+        android:id="@+id/iv_today_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_today_max_temp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_location"/>
+
+    <TextView
+        android:id="@+id/tv_today_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/iv_today_location"
+        android:layout_alignBottom="@+id/iv_today_location"
+        android:text="深圳"
+        android:textSize="20sp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true">
+        <ImageView
+            android:id="@+id/iv_today_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_02"/>
+        <TextView
+            android:id="@+id/tv_today_weather"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="多云"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
