@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +16,7 @@ import com.example.android.simpleweather.Models.CityBean;
 import com.example.android.simpleweather.R;
 import com.example.android.simpleweather.Utils.ConfigURL;
 import com.example.android.simpleweather.Utils.SpUtils;
+import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -24,13 +26,13 @@ import java.util.List;
 
 import okhttp3.Call;
 
-public class SetCityActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class SetCityActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Spinner spinnerProvince, spinnerCity, spinnerDistrict;
     public static String strDistrict;
     CityBean cityBean = null;
 
-    List<CityBean.ResultBean> citieslist;
+    List<CityBean.ResultBean> citieslist = null;
     List<String> pList = new ArrayList<>();//存放省
     List<String> cList = new ArrayList<>();//存放市
     List<String> dList = new ArrayList<>();//存放县
@@ -51,7 +53,7 @@ public class SetCityActivity extends AppCompatActivity implements AdapterView.On
 
         //程序第一次运行时，cityBean==null
         //程序不是第一次运行，直接从SpUtils获得cityBean对象；
-        cityBean = SpUtils.getObject(SetCityActivity.this,CityBean.class);
+        cityBean = SpUtils.getObject(SetCityActivity.this, CityBean.class);
         loadCitiesData();
 
 
@@ -59,21 +61,22 @@ public class SetCityActivity extends AppCompatActivity implements AdapterView.On
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent data = new Intent(SetCityActivity.this, MainActivity.class) ;
+                Intent data = new Intent(SetCityActivity.this, MainActivity.class);
                 data.putExtra("selectedDistrict", strDistrict);
-                setResult(RESULT_OK,data);
+                setResult(RESULT_OK, data);
                 finish();
             }
         });
     }
 
 
-    private void loadCitiesData(){
+    private void loadCitiesData() {
         //程序第一次运行时，cityBean==null，通过URL获取城市JSON数据
         //程序不是第一次运行，说明已经直接从SpUtils获得cityBean对象；
+        Log.d("xxx", "loadCitiesData: " + new Gson().toJson(cityBean));
 
         if (cityBean == null) {
-            String citiesUrl = ConfigURL.citiesURL;
+            final String citiesUrl = ConfigURL.citiesURL;
             OkHttpUtils.get().url(citiesUrl).build().execute(new StringCallback() {
 
                 @Override
@@ -86,13 +89,14 @@ public class SetCityActivity extends AppCompatActivity implements AdapterView.On
                     //获得CityBean对象
                     cityBean = JSON.parseObject(response, CityBean.class);
                     //保存cityBean对象
-                    SpUtils.putObject(SetCityActivity.this,cityBean);
+                    SpUtils.putObject(SetCityActivity.this, cityBean);
 
+                    Log.d("---TAG---", "onResponse--------------: ");
                     //处理得到的城市数据
                     processCitiesData(cityBean);
                 }
             });
-        }else{
+        } else {
             //处理得到的城市数据
             processCitiesData(cityBean);
         }
@@ -100,30 +104,34 @@ public class SetCityActivity extends AppCompatActivity implements AdapterView.On
     }
 
 
-    private void processCitiesData(CityBean cityBean){
+    private void processCitiesData(CityBean cityBean) {
+        Log.d("---TAG---", "processCitiesData------1--------: ");
         //获得城市列表
         citieslist = cityBean.getResult();
+
+        Log.d("---TAG---", "processCitiesData--2------------: ");
         //借助HashSet去除重复的省
         HashSet<String> hashSet = new HashSet<>();
         //遍历出省份,把省份配置到spinnerProvince；
-        for (int i =0;i<citieslist.size();i++){
+        for (int i = 0; i < citieslist.size(); i++) {
             CityBean.ResultBean element = citieslist.get(i);
-            if (hashSet.add(element.getProvince())){
+            if (hashSet.add(element.getProvince())) {
                 pList.add(element.getProvince());
             }
         }
         setSpinnerAdapter(this, spinnerProvince, pList);
 
+
     }
 
     //遍历出市区,把市区配置到spinnerCity；
-    private void selectCity(String strProvince){
+    private void selectCity(String strProvince) {
         //遍历出市级单位
         HashSet<String> hashSet = new HashSet<>();
-        for (int i =0;i<citieslist.size();i++) {
+        for (int i = 0; i < citieslist.size(); i++) {
             CityBean.ResultBean element = citieslist.get(i);
-            if(element.getProvince().equals(strProvince)){
-                if (hashSet.add(element.getCity())){
+            if (element.getProvince().equals(strProvince)) {
+                if (hashSet.add(element.getCity())) {
                     cList.add(element.getCity());
                 }
             }
@@ -133,13 +141,13 @@ public class SetCityActivity extends AppCompatActivity implements AdapterView.On
     }
 
     //遍历出县区,把县区配置到spinnerDistrict；
-    private void selectDisrict(String strCity){
+    private void selectDisrict(String strCity) {
         //遍历出市级单位
         HashSet<String> hashSet = new HashSet<>();
-        for (int i =0;i<citieslist.size();i++) {
+        for (int i = 0; i < citieslist.size(); i++) {
             CityBean.ResultBean element = citieslist.get(i);
-            if(element.getCity().equals(strCity)){
-                if (hashSet.add(element.getDistrict())){
+            if (element.getCity().equals(strCity)) {
+                if (hashSet.add(element.getDistrict())) {
                     dList.add(element.getDistrict());
                 }
             }
@@ -150,7 +158,7 @@ public class SetCityActivity extends AppCompatActivity implements AdapterView.On
     //spinner的事件响应
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        switch (parent.getId()){
+        switch (parent.getId()) {
             case R.id.spinner_province:
                 cList.clear();
                 String strProvince = pList.get(position);
@@ -167,6 +175,7 @@ public class SetCityActivity extends AppCompatActivity implements AdapterView.On
         }
 
     }
+
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 

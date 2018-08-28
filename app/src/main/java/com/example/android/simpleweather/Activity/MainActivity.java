@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         mrecyclerView = findViewById(R.id.recycler_view);
 
         refresh();
+
+        //设置分割线
+        mrecyclerView.addItemDecoration(new MyDecoration());
     }
 
     private void refresh(){
@@ -82,8 +85,6 @@ public class MainActivity extends AppCompatActivity {
                     mrecyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                     //设置适配器
                     mrecyclerView.setAdapter(recyclerViewAdapter);
-                    //设置分割线
-                    mrecyclerView.addItemDecoration(new MyDecoration());
                 }
             });
 
