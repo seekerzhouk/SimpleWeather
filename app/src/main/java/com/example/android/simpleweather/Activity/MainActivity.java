@@ -30,6 +30,9 @@ import okhttp3.Call;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
+    private static final boolean DBG = true;
+
     private RecyclerView mrecyclerView = null;
     static String district = null;
     public static final int REQUEST_CODE_TO_SET_CITY = 1;
@@ -69,6 +72,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refresh() {
+        if (DBG) {
+            Log.d(TAG, "refresh, district = " + district);
+        }
+
         //如果district不为空，主界面设置RecyclerView
         if (district != null) {
 
