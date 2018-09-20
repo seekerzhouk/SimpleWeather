@@ -6,3 +6,5 @@
 <br>使用Gson解析Json数据
 <br>使用RecyclerView显示一周天气
 <br>使用Spinner选择城市
+## 数据API来源
+聚合数据
