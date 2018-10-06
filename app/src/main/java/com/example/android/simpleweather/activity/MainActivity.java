@@ -1,4 +1,4 @@
-package com.example.android.simpleweather.Activity;
+package com.example.android.simpleweather.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -16,29 +16,34 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
-import com.example.android.simpleweather.AFragment;
-import com.example.android.simpleweather.Adapter.RecyclerViewAdapter;
-import com.example.android.simpleweather.Models.JsonBean;
+import com.example.android.simpleweather.fragment.HintFragment;
+import com.example.android.simpleweather.adapter.RecyclerViewAdapter;
+import com.example.android.simpleweather.bean.JsonBean;
 import com.example.android.simpleweather.R;
-import com.example.android.simpleweather.Utils.ConfigURL;
-import com.example.android.simpleweather.Utils.SpUtils;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
+import com.example.android.simpleweather.utils.ConfigURL;
+import com.example.android.simpleweather.utils.SpUtils;
+import com.google.gson.Gson;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private static final boolean DBG = true;
 
-    private RecyclerView mrecyclerView = null;
     static String district = null;
     public static final int REQUEST_CODE_TO_SET_CITY = 1;
 
-    LinearLayoutManager linearLayoutManager = null;
-    RecyclerViewAdapter.OnItemClickListener rvaOnItemClickListener = null;
+    private RecyclerView mrecyclerView = null;
+    private LinearLayoutManager linearLayoutManager = null;
+    private RecyclerViewAdapter.OnItemClickListener rvaOnItemClickListener = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
         //设置分割线
         mrecyclerView.addItemDecoration(new MyDecoration());
+        //布局管理器
+        mrecyclerView.setLayoutManager(linearLayoutManager);
 
         refresh();
     }
@@ -84,35 +91,52 @@ public class MainActivity extends AppCompatActivity {
             progressDialog.setMessage(getResources().getString(R.string.loading_str));
             progressDialog.show();
 
-            //通过URL获取选定district的天气信息
-            String weatherUrl = ConfigURL.getWeatherURL(district);
-            OkHttpUtils.get().url(weatherUrl).build().execute(new StringCallback() {
+            OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .connectTimeout(15, TimeUnit.SECONDS)
+                    .readTimeout(15, TimeUnit.SECONDS)
+                    .writeTimeout(15, TimeUnit.SECONDS)
+                    .build();
+            Request request = new Request.Builder()
+                    .url(ConfigURL.getWeatherURL(district))
+                    .build();
+
+            Call call = okHttpClient.newCall(request);
+
+            call.enqueue(new Callback() {
                 @Override
-                public void onError(Call call, Exception e, int id) {
+                public void onFailure(Call call, IOException e) {
 
                 }
 
                 @Override
-                public void onResponse(String response, int id) {
+                public void onResponse(Call call, Response response) throws IOException {
+
+                    String string = response.body().string();
+                    Log.i("---", "onResponse: " + string);
+
                     //获得JsonBean对象
-                    final JsonBean jsonBean = JSON.parseObject(response, JsonBean.class);
+                    Gson gson = new Gson();
+                    final JsonBean jsonBean = gson.fromJson(string, JsonBean.class);
                     //保存jsonBean对象
                     SpUtils.putObject(MainActivity.this, jsonBean);
 
-                    //布局管理器
-                    mrecyclerView.setLayoutManager(linearLayoutManager);
-                    //设置适配器
-                    mrecyclerView.setAdapter(new RecyclerViewAdapter(MainActivity.this, rvaOnItemClickListener));
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //设置适配器
+                            mrecyclerView.setAdapter(new RecyclerViewAdapter(MainActivity.this, rvaOnItemClickListener));
 
-                    progressDialog.hide();
-                    Toast.makeText(MainActivity.this, getString(R.string.succeed_refresh_str), Toast.LENGTH_SHORT).show();
+                            progressDialog.hide();
+                            Toast.makeText(MainActivity.this, getString(R.string.succeed_refresh_str), Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             });
 
             //当district为空，主界面显示Fragment
         } else {
-            AFragment afragment = new AFragment();
-            getFragmentManager().beginTransaction().add(R.id.main_fragment, afragment).commitAllowingStateLoss();
+            HintFragment hintFragment = new HintFragment();
+            getFragmentManager().beginTransaction().add(R.id.main_fragment, hintFragment).commitAllowingStateLoss();
 
         }
     }
@@ -122,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
             super.getItemOffsets(outRect, view, parent, state);
-            outRect.set(0, getResources().getDimensionPixelOffset(R.dimen.dividerHeight), 0, 0);
+            outRect.set(0, 0, 0, getResources().getDimensionPixelOffset(R.dimen.dividerHeight));
         }
     }
 

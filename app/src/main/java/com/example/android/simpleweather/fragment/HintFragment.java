@@ -1,4 +1,4 @@
-package com.example.android.simpleweather;
+package com.example.android.simpleweather.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -11,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class AFragment extends Fragment {
+import com.example.android.simpleweather.R;
+
+public class HintFragment extends Fragment {
 
     @Nullable
     @Override

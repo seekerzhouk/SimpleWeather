@@ -1,4 +1,4 @@
-package com.example.android.simpleweather.Utils;
+package com.example.android.simpleweather.utils;
 
 import android.util.Log;
 import android.widget.ImageView;

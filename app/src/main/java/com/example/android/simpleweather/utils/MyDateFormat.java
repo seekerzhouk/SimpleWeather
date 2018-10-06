@@ -1,4 +1,4 @@
-package com.example.android.simpleweather.Utils;
+package com.example.android.simpleweather.utils;
 
 public class MyDateFormat {
 

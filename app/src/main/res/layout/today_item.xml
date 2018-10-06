@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
-    android:background="@color/todayItemBackground">
+    android:background="@drawable/bg_todayitem">
 
     <TextView
         android:id="@+id/tv_today_day"

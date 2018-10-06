@@ -1,15 +1,15 @@
-package com.example.android.simpleweather.Activity;
+package com.example.android.simpleweather.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.simpleweather.Models.JsonBean;
-import com.example.android.simpleweather.Utils.MyDateFormat;
+import com.example.android.simpleweather.bean.JsonBean;
+import com.example.android.simpleweather.utils.MyDateFormat;
 import com.example.android.simpleweather.R;
-import com.example.android.simpleweather.Utils.SetIcon;
-import com.example.android.simpleweather.Utils.SpUtils;
+import com.example.android.simpleweather.utils.SetIcon;
+import com.example.android.simpleweather.utils.SpUtils;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class DetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detais);
+        setContentView(R.layout.activity_details);
 
         ImageView dImageWeather = findViewById(R.id.iv_details_weather);
         TextView dDay = findViewById(R.id.tv_details_day);

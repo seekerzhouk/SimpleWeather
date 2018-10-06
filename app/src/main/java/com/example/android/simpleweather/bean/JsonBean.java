@@ -1,4 +1,4 @@
-package com.example.android.simpleweather.Models;
+package com.example.android.simpleweather.bean;
 
 import java.util.List;
 

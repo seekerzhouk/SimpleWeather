@@ -1,4 +1,4 @@
-package com.example.android.simpleweather.Activity;
+package com.example.android.simpleweather.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,20 +11,23 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import com.alibaba.fastjson.JSON;
-import com.example.android.simpleweather.Models.CityBean;
+import com.example.android.simpleweather.bean.CityBean;
 import com.example.android.simpleweather.R;
-import com.example.android.simpleweather.Utils.ConfigURL;
-import com.example.android.simpleweather.Utils.SpUtils;
+import com.example.android.simpleweather.utils.ConfigURL;
+import com.example.android.simpleweather.utils.SpUtils;
 import com.google.gson.Gson;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class SetCityActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -73,25 +76,43 @@ public class SetCityActivity extends AppCompatActivity implements AdapterView.On
     private void loadCitiesData() {
         //程序第一次运行时，cityBean==null，通过URL获取城市JSON数据
         //程序不是第一次运行，说明已经直接从SpUtils获得cityBean对象；
-
         if (cityBean == null) {
-            final String citiesUrl = ConfigURL.citiesURL;
-            OkHttpUtils.get().url(citiesUrl).build().execute(new StringCallback() {
+            OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .connectTimeout(15, TimeUnit.SECONDS)
+                    .readTimeout(15, TimeUnit.SECONDS)
+                    .writeTimeout(15, TimeUnit.SECONDS)
+                    .build();
+            Request request = new Request.Builder()
+                    .url(ConfigURL.citiesURL)
+                    .build();
 
+            Call call = okHttpClient.newCall(request);
+
+            call.enqueue(new Callback() {
                 @Override
-                public void onError(Call call, Exception e, int id) {
+                public void onFailure(Call call, IOException e) {
 
                 }
 
                 @Override
-                public void onResponse(String response, int id) {
+                public void onResponse(Call call, Response response) throws IOException {
+
+                    String string = response.body().string();
+                    Log.i("---", "onResponse: " + string);
+
                     //获得CityBean对象
-                    cityBean = JSON.parseObject(response, CityBean.class);
+                    Gson gson = new Gson();
+                    final CityBean cityBean = gson.fromJson(string, CityBean.class);
                     //保存cityBean对象
                     SpUtils.putObject(SetCityActivity.this, cityBean);
 
-                    //处理得到的城市数据
-                    processCitiesData(cityBean);
+                    //在UI线程中对控件进行刷新
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            processCitiesData(cityBean);
+                        }
+                    });
                 }
             });
         } else {

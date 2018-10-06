@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ADD8E6</color>
-    <color name="colorPrimaryDark">#9AC0CD</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="colorRecyclerViewBackground">#FFFFFF</color>
+    <color name="colorPrimary">#78909C</color>
+    <color name="colorPrimaryDark">#607D8B</color>
+    <color name="colorAccent">#78909C</color>
+    <color name="colorRecyclerViewBackground">#90A4AE</color>
     <color name="listItemBackground">#E5E5E5</color>
-    <color name="todayItemBackground">#ADD8E6</color>
+    <color name="todayItemBackground">#90A4AE</color>
     <color name="toast">#bac2dc</color>
     <color name="fragment_text">#FFFFFF</color>
     <color name="about_activity">#E5E5E5</color>
+    <color name="list_item_pressed">#bac2dc</color>
+    <color name="detailActivity">#FFFFFF</color>
+    <color name="today_item_pressed">#78909C</color>
+    <color name="imageViewBG">#90A4AE</color>
 </resources>
