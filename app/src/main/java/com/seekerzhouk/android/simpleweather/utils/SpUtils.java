@@ -1,4 +1,4 @@
-package com.example.android.simpleweather.utils;
+package com.seekerzhouk.android.simpleweather.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

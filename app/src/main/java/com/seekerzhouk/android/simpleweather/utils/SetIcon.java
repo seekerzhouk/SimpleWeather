@@ -1,9 +1,9 @@
-package com.example.android.simpleweather.utils;
+package com.seekerzhouk.android.simpleweather.utils;
 
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.example.android.simpleweather.R;
+import com.seekerzhouk.android.simpleweather.R;
 
 public class SetIcon {
     public static void setWeatherIcon(ImageView imageView, String weatherId){

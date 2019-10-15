@@ -1,4 +1,4 @@
-package com.example.android.simpleweather.activity;
+package com.seekerzhouk.android.simpleweather.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -18,12 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.android.simpleweather.fragment.HintFragment;
-import com.example.android.simpleweather.adapter.RecyclerViewAdapter;
-import com.example.android.simpleweather.bean.JsonBean;
-import com.example.android.simpleweather.R;
-import com.example.android.simpleweather.utils.ConfigURL;
-import com.example.android.simpleweather.utils.SpUtils;
+import com.seekerzhouk.android.simpleweather.fragment.HintFragment;
+import com.seekerzhouk.android.simpleweather.adapter.RecyclerViewAdapter;
+import com.seekerzhouk.android.simpleweather.bean.JsonBean;
+import com.seekerzhouk.android.simpleweather.R;
+import com.seekerzhouk.android.simpleweather.utils.ConfigURL;
+import com.seekerzhouk.android.simpleweather.utils.SpUtils;
 import com.google.gson.Gson;
 
 import java.io.IOException;

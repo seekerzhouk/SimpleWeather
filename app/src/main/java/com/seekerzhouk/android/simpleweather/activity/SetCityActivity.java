@@ -1,4 +1,4 @@
-package com.example.android.simpleweather.activity;
+package com.seekerzhouk.android.simpleweather.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,10 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import com.example.android.simpleweather.bean.CityBean;
-import com.example.android.simpleweather.R;
-import com.example.android.simpleweather.utils.ConfigURL;
-import com.example.android.simpleweather.utils.SpUtils;
+import com.seekerzhouk.android.simpleweather.bean.CityBean;
+import com.seekerzhouk.android.simpleweather.R;
+import com.seekerzhouk.android.simpleweather.utils.ConfigURL;
+import com.seekerzhouk.android.simpleweather.utils.SpUtils;
 import com.google.gson.Gson;
 
 import java.io.IOException;

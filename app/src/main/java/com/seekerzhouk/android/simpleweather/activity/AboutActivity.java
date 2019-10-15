@@ -1,11 +1,11 @@
-package com.example.android.simpleweather.activity;
+package com.seekerzhouk.android.simpleweather.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.example.android.simpleweather.utils.PackageInfoUtils;
-import com.example.android.simpleweather.R;
+import com.seekerzhouk.android.simpleweather.utils.PackageInfoUtils;
+import com.seekerzhouk.android.simpleweather.R;
 
 public class AboutActivity extends AppCompatActivity {
 

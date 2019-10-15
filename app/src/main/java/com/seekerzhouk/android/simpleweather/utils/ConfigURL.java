@@ -1,4 +1,4 @@
-package com.example.android.simpleweather.utils;
+package com.seekerzhouk.android.simpleweather.utils;
 
 public class ConfigURL {
     final static String key =

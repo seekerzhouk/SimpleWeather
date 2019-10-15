@@ -1,4 +1,4 @@
-package com.example.android.simpleweather.adapter;
+package com.seekerzhouk.android.simpleweather.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.simpleweather.bean.JsonBean;
-import com.example.android.simpleweather.R;
-import com.example.android.simpleweather.utils.SetIcon;
-import com.example.android.simpleweather.utils.MyDateFormat;
-import com.example.android.simpleweather.utils.SpUtils;
+import com.seekerzhouk.android.simpleweather.bean.JsonBean;
+import com.seekerzhouk.android.simpleweather.R;
+import com.seekerzhouk.android.simpleweather.utils.SetIcon;
+import com.seekerzhouk.android.simpleweather.utils.MyDateFormat;
+import com.seekerzhouk.android.simpleweather.utils.SpUtils;
 
 import java.util.List;
 

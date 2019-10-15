@@ -1,4 +1,4 @@
-package com.example.android.simpleweather.fragment;
+package com.seekerzhouk.android.simpleweather.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.android.simpleweather.R;
+import com.seekerzhouk.android.simpleweather.R;
 
 public class HintFragment extends Fragment {
 

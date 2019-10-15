@@ -1,15 +1,15 @@
-package com.example.android.simpleweather.activity;
+package com.seekerzhouk.android.simpleweather.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.simpleweather.bean.JsonBean;
-import com.example.android.simpleweather.utils.MyDateFormat;
-import com.example.android.simpleweather.R;
-import com.example.android.simpleweather.utils.SetIcon;
-import com.example.android.simpleweather.utils.SpUtils;
+import com.seekerzhouk.android.simpleweather.bean.JsonBean;
+import com.seekerzhouk.android.simpleweather.utils.MyDateFormat;
+import com.seekerzhouk.android.simpleweather.R;
+import com.seekerzhouk.android.simpleweather.utils.SetIcon;
+import com.seekerzhouk.android.simpleweather.utils.SpUtils;
 
 import java.util.List;
 
