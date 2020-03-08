@@ -3,7 +3,6 @@ package com.seekerzhouk.android.simpleweather.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,11 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import com.seekerzhouk.android.simpleweather.bean.CityBean;
+import com.google.gson.Gson;
 import com.seekerzhouk.android.simpleweather.R;
+import com.seekerzhouk.android.simpleweather.bean.CityBean;
 import com.seekerzhouk.android.simpleweather.utils.ConfigURL;
 import com.seekerzhouk.android.simpleweather.utils.SpUtils;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class SetCityActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class SetCityActivity extends BaseActivity implements AdapterView.OnItemSelectedListener {
 
     private Spinner spinnerProvince, spinnerCity, spinnerDistrict;
     public static String strDistrict;

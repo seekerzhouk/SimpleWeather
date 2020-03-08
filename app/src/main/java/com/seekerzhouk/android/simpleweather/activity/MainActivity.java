@@ -6,9 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.seekerzhouk.android.simpleweather.fragment.HintFragment;
@@ -35,7 +38,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity implements HintFragment.SetCityCallBack {
+public class MainActivity extends BaseActivity implements HintFragment.SetCityCallBack {
 
     private static final String TAG = "MainActivity";
     private static final boolean DBG = true;
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements HintFragment.SetC
     public static final int REQUEST_CODE_TO_SET_CITY = 1;
 
     private RecyclerView mrecyclerView = null;
+    private LinearLayout mainLinearLayout = null;
     private LinearLayoutManager linearLayoutManager = null;
     private RecyclerViewAdapter.OnItemClickListener rvaOnItemClickListener = null;
 
@@ -51,8 +55,9 @@ public class MainActivity extends AppCompatActivity implements HintFragment.SetC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mrecyclerView = findViewById(R.id.recycler_view);
 
+        mrecyclerView = findViewById(R.id.recycler_view);
+        mainLinearLayout = findViewById(R.id.main_linearLayout);
         SharedPreferences sharedPreferences = getSharedPreferences("FirstDistrict", Context.MODE_PRIVATE);
         district = sharedPreferences.getString("district", null);
 
@@ -80,6 +85,24 @@ public class MainActivity extends AppCompatActivity implements HintFragment.SetC
         mrecyclerView.setLayoutManager(linearLayoutManager);
 
         refresh();
+        setBackground();
+    }
+
+    /**
+     * 在不同时间段，设置状态栏和actionbar不同的背景颜色
+     */
+    private void setBackground() {
+        TimePicker timePicker = new TimePicker(this);
+        int hour = timePicker.getHour();
+        if (hour >= 6 && hour <= 11) {
+            mainLinearLayout.setBackground(getDrawable(R.drawable.bg_morning));
+        } else if (hour > 11 && hour < 14) {
+            mainLinearLayout.setBackground(getDrawable(R.drawable.bg_noon));
+        } else if (hour >= 14 && hour <=18) {
+            mainLinearLayout.setBackground(getDrawable(R.drawable.bg_afternoon));
+        } else {
+            mainLinearLayout.setBackground(getDrawable(R.drawable.bg_night));
+        }
     }
 
     private void refresh() {

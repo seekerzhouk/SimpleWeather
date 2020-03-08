@@ -7,10 +7,24 @@
     <color name="listItemBackground">#E5E5E5</color>
     <color name="todayItemBackground">#90A4AE</color>
     <color name="toast">#bac2dc</color>
-    <color name="fragment_text">#FFFFFF</color>
+    <color name="Transparent">#00000000</color>
     <color name="about_activity">#E5E5E5</color>
     <color name="list_item_pressed">#bac2dc</color>
     <color name="detailActivity">#FFFFFF</color>
     <color name="today_item_pressed">#78909C</color>
     <color name="imageViewBG">#90A4AE</color>
+
+    <color name="afternoon_actionbar">#E08287</color>
+    <color name="afternoon_status">#BC6771</color>
+
+    <color name="morning_actionbar">#365C88</color>
+    <color name="morning_status">#314B77</color>
+
+    <color name="noon_actionbar">#F1CAE8</color>
+    <color name="noon_status">#E5B2D9</color>
+
+    <color name="night_actionbar">#051B2A</color>
+    <color name="night_status">#020108</color>
+
+    <color name="text_color">#FFFFFF</color>
 </resources>

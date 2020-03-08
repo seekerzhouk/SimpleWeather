@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_item">
+    android:background="@color/Transparent">
 
     <ImageView
         android:id="@+id/iv_item_weather"
@@ -19,6 +19,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:text="星期二"
+        android:textColor="@color/text_color"
         android:textSize="20sp"/>
 
     <TextView
@@ -29,6 +30,7 @@
         android:layout_alignLeft="@+id/tv_item_day"
         android:layout_marginTop="10dp"
         android:text="晴天"
+        android:textColor="@color/text_color"
         android:textSize="18sp"/>
     <TextView
         android:id="@+id/tv_item_date"
@@ -40,6 +42,7 @@
         android:layout_marginTop="10dp"
         android:text="2019-08-14"
         android:textSize="18sp"
+        android:textColor="@color/text_color"
         android:layout_marginEnd="10dp" />
 
     <TextView
@@ -53,6 +56,7 @@
         android:layout_marginTop="5dp"
         android:text="29℃"
         android:textSize="24sp"
+        android:textColor="@color/text_color"
         android:layout_marginEnd="10dp" />
 
 

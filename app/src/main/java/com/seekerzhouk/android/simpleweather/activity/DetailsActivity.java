@@ -1,6 +1,5 @@
 package com.seekerzhouk.android.simpleweather.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,7 +12,7 @@ import com.seekerzhouk.android.simpleweather.utils.SpUtils;
 
 import java.util.List;
 
-public class DetailsActivity extends AppCompatActivity {
+public class DetailsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
