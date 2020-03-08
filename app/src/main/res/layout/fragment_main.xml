@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center">
+    android:paddingTop="80dp"
+    android:gravity="center_horizontal">
 
 
     <ImageView
@@ -16,8 +17,17 @@
         android:layout_height="wrap_content"
         android:background="@color/fragment_text"
         android:layout_marginTop="20dp"
+        android:padding="5dp"
         android:text="@string/please_set_city"
-        android:textSize="24sp"/>
+        android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/btn_set_city"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set_city"
+        android:textSize="20sp"/>
 
 
 

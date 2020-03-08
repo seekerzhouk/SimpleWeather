@@ -35,7 +35,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HintFragment.SetCityCallBack {
 
     private static final String TAG = "MainActivity";
     private static final boolean DBG = true;
@@ -70,8 +70,7 @@ public class MainActivity extends AppCompatActivity {
             //点击位置图标和位置TextView跳转到设置城市界面
             @Override
             public void setLocationClick() {
-                Intent intent = new Intent(MainActivity.this, SetCityActivity.class);
-                startActivityForResult(intent, REQUEST_CODE_TO_SET_CITY);
+                setCity();
             }
         };
 
@@ -93,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
             // 提示对话框
             final ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
-            progressDialog.setMessage(getResources().getString(R.string.loading_str));
+            progressDialog.setMessage(getResources().getString(R.string.loading));
             progressDialog.show();
 
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -142,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             HintFragment hintFragment = new HintFragment();
             getFragmentManager().beginTransaction().add(R.id.main_fragment, hintFragment).commitAllowingStateLoss();
-
         }
     }
 
@@ -169,14 +167,13 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_refresh:
                 if (district == null) {
-                    Toast.makeText(this, R.string.havent_set_location, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.location_not_set, Toast.LENGTH_SHORT).show();
                 } else {
                     refresh();
                 }
                 return true;
             case R.id.action_set_location:
-                Intent intent = new Intent(MainActivity.this, SetCityActivity.class);
-                startActivityForResult(intent, REQUEST_CODE_TO_SET_CITY);
+                setCity();
                 return true;
             case R.id.action_about:
                 startActivity(new Intent(this, AboutActivity.class));
@@ -188,23 +185,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void setCity() {
+        Intent intent = new Intent(MainActivity.this, SetCityActivity.class);
+        startActivityForResult(intent, REQUEST_CODE_TO_SET_CITY);
+    }
+
     private long mBackPressedTime;
 
     //返回键的时间响应
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
         long curTime = SystemClock.uptimeMillis();
         if ((curTime - mBackPressedTime) < (3 * 1000)) {
             finish();
         } else {
             mBackPressedTime = curTime;
             Toast.makeText(this, R.string.tip_double_click_exit, Toast.LENGTH_LONG).show();
-//            Toast toast = new Toast(this);
-//            TextView textView = new TextView(this);
-//            textView.setText(R.string.tip_double_click_exit);
-//            toast.setView(textView);
-//            toast.show();
         }
     }
 
