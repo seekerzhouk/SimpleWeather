@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,13 +21,14 @@ import android.widget.LinearLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.seekerzhouk.android.simpleweather.fragment.HintFragment;
+import com.google.gson.Gson;
+import com.seekerzhouk.android.simpleweather.R;
 import com.seekerzhouk.android.simpleweather.adapter.RecyclerViewAdapter;
 import com.seekerzhouk.android.simpleweather.bean.JsonBean;
-import com.seekerzhouk.android.simpleweather.R;
+import com.seekerzhouk.android.simpleweather.fragment.HintFragment;
+import com.seekerzhouk.android.simpleweather.receiver.NetWorkStateReceiver;
 import com.seekerzhouk.android.simpleweather.utils.ConfigURL;
 import com.seekerzhouk.android.simpleweather.utils.SpUtils;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -51,10 +52,14 @@ public class MainActivity extends BaseActivity implements HintFragment.SetCityCa
     private LinearLayoutManager linearLayoutManager = null;
     private RecyclerViewAdapter.OnItemClickListener rvaOnItemClickListener = null;
 
+    private NetWorkStateReceiver netWorkStateReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        registerMyReceiver();
 
         mrecyclerView = findViewById(R.id.recycler_view);
         mainLinearLayout = findViewById(R.id.main_linearLayout);
@@ -86,6 +91,21 @@ public class MainActivity extends BaseActivity implements HintFragment.SetCityCa
 
         refresh();
         setBackground();
+    }
+
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(netWorkStateReceiver);
+        super.onDestroy();
+    }
+
+    private void registerMyReceiver() {
+        if (netWorkStateReceiver == null) {
+            netWorkStateReceiver = new NetWorkStateReceiver();
+        }
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(netWorkStateReceiver, intentFilter);
     }
 
     /**
